@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:nanny_vanny/components/images.dart';
 import 'package:nanny_vanny/components/utils.dart';
 import 'package:nanny_vanny/packages/package_controller.dart';
 
@@ -62,7 +64,9 @@ class PackageCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                SvgPicture.asset(ImagePath.cal2),
                 Container(
                   height: 30,
                   width: 100,

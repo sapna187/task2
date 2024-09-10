@@ -12,6 +12,9 @@ class ImagePath {
   static String pin = "${base}pin.png";
   static String radio = "${base}radio.png";
   static String cal2 = "${base}calendar_big.svg";
+  static String threeDays = "${base}threeDays.svg";
+  static String fiveDays = "${base}fiveDays.svg";
+  static String weekend = "${base}weekend.svg";
   static String home = "${base}home.svg";
   static String package = "${base}sale.svg";
   static String booking = "${base}Clock.svg";
