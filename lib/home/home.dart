@@ -1,12 +1,12 @@
 // ignore_for_file: deprecated_member_use, avoid_print
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nanny_vanny/booking/bookings.dart';
+import 'package:nanny_vanny/components/images.dart';
 import 'package:nanny_vanny/home/home_controller.dart';
 import 'package:nanny_vanny/packages/packages.dart';
-import 'package:nanny_vanny/utils.dart';
+import 'package:nanny_vanny/components/utils.dart';
 
 class HomeView extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
@@ -19,7 +19,11 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: white,
       key: scaffoldKey,
-      appBar: customAppBar(scaffoldKey),
+      appBar: AppBar(
+        actions: [
+          SvgPicture.asset(ImagePath.menu)
+        ],
+      ),
       endDrawer: const Drawer(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -94,91 +98,6 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget customAppBar(GlobalKey<ScaffoldState> scaffoldKey) {
-    final HomeController controller = Get.put(HomeController());
-
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Obx(() => GestureDetector(
-              onTap: () => controller.pickImage(),
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: boxColor,
-                    backgroundImage: controller.selectedImage.value != null
-                        ? FileImage(File(controller.selectedImage.value!.path))
-                        : null,
-                  ),
-                  const Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: CircleAvatar(
-                      radius: 8,
-                      backgroundColor: orange,
-                      child: Icon(
-                        Icons.add,
-                        size: 15,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )),
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              gapW(20),
-              customText('CUSTOMER NAME', orange, 16.0, FontWeight.w600),
-            ],
-          ),
-          Row(
-            children: [
-              const Icon(Icons.location_on, color: boxColor, size: 16),
-              gapW(5),
-              SizedBox(
-                height: 20,
-                child: Obx(() => Container(
-                      constraints: const BoxConstraints(maxWidth: 118),
-                      child: DropdownButton<String>(
-                        value: controller.selectedCity.value,
-                        underline: const SizedBox(),
-                        icon: const Icon(Icons.arrow_drop_down,
-                            color: Colors.black),
-                        items: controller.cities
-                            .map((city) => DropdownMenuItem<String>(
-                                value: city,
-                                child: customText(
-                                    city, black, 13.0, FontWeight.w600)))
-                            .toList(),
-                        onChanged: (value) {
-                          if (value != null) {
-                            controller.updateCity(value);
-                          }
-                        },
-                      ),
-                    )),
-              )
-            ],
-          )
-        ],
-      ),
-      actions: [
-        IconButton(
-          icon: SvgPicture.asset("assets/images/Menu.svg"),
-          onPressed: () => controller.openDrawer(scaffoldKey),
-        ),
-      ],
-    );
-  }
-
   Widget bottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
@@ -190,48 +109,48 @@ class HomeView extends StatelessWidget {
             height: 24,
             width: 24,
             color:
-                controller.selectedCategory.value == 0 ? orange : Colors.grey,
+                controller.selectedCategory.value == 0 ? pink : lightBlack,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/menu2.svg',
+            ImagePath.home,
             height: 24,
             width: 24,
             color:
-                controller.selectedCategory.value == 1 ? orange : Colors.grey,
+                controller.selectedCategory.value == 1 ? pink : lightBlack,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/add.svg',
+            ImagePath.package,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/notifi.svg',
+            ImagePath.booking,
             height: 24,
             width: 24,
             color:
-                controller.selectedCategory.value == 2 ? orange : Colors.grey,
+                controller.selectedCategory.value == 2 ? pink : lightBlack,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/profle.svg',
+            ImagePath.profile,
             height: 24,
             width: 24,
             color:
-                controller.selectedCategory.value == 3 ? orange : Colors.grey,
+                controller.selectedCategory.value == 3 ? pink : lightBlack,
           ),
           label: '',
         ),
       ],
-      selectedItemColor: orange,
+      selectedItemColor: pink,
       unselectedItemColor: Colors.grey,
       showSelectedLabels: false,
       showUnselectedLabels: false,
