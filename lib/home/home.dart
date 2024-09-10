@@ -162,13 +162,13 @@ class HomeView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         // Blue line at the top
-        Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Container(
-            height: 2, // Adjust the height as needed
-            color: Colors.blue, // Blue color for the line
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(18.0),
+        //   child: Container(
+        //     height: 2, // Adjust the height as needed
+        //     color: Colors.blue, // Blue color for the line
+        //   ),
+        // ),
         BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
