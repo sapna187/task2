@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nanny_vanny/components/utils.dart';
 import 'package:nanny_vanny/packages/package_controller.dart';
 
 class PackageListView extends StatelessWidget {
@@ -15,7 +16,8 @@ class PackageListView extends StatelessWidget {
       }
 
       if (packageController.packages.isEmpty) {
-        return const Center(child: Text('No packages available'));
+        return Center(child: customText(
+                "No Packages available", lightBlack, 16.0, FontWeight.w600));
       }
 
       return ListView.builder(
@@ -40,6 +42,7 @@ class PackageCard extends StatelessWidget {
   final String description;
 
   const PackageCard({
+    super.key,
     required this.title,
     required this.price,
     required this.description,
@@ -52,12 +55,25 @@ class PackageCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Colors.pink.shade100,
+          color: price == '₹ 7497' ? lightBlue : lightPink,
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              children: [
+                Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0), color: price == '₹ 7497' ? dirtyBlue : pinkText),
+                  child: Center(
+                    child: customText("Book Now", white, 16.0, FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
             Text(
               title,
               style: const TextStyle(
