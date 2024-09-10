@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nanny_vanny/utils.dart';
+import 'package:nanny_vanny/components/utils.dart';
 
 class HomeController extends GetxController {
   var selectedCategory = 0.obs;
