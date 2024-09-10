@@ -77,65 +77,78 @@ class HomeView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.pink.shade100,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Stack(
+
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Nanny And Babysitting Services',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          gapH(40),
+                          Container(
+                            height: 160,
+                            width: MediaQuery.of(context).size.width / 1.2,
+                            padding: const EdgeInsets.all(16.0),
+                            decoration: BoxDecoration(
+                              color: lightPink,
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text('Book Now'),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    customText(
+                                        "Nanny And\nBabysitting Services",
+                                        blue,
+                                        20.0,
+                                        FontWeight.w600),
+                                    gapH(10),
+                                    Container(
+                                      height: 30,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          color: blue),
+                                      child: Center(
+                                        child: customText("Book Now", white,
+                                            16.0, FontWeight.w500),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                      SvgPicture.asset(
-                        'assets/images/lady.svg',
-                        height: 80,
-                      ),
+                      Row(
+                        children: [
+                          const Spacer(),
+                          Image.asset(ImagePath.nanny),
+                        ],
+                      )
                     ],
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(18.0),
-                child: Text(
-                  'Your Current Booking',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                  )),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: customText('Your Current Booking', blue, 20.0, FontWeight.bold)
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: CurrentBookingCard(),
               ),
-              const Padding(
-                padding: EdgeInsets.all(18.0),
-                child: Text(
-                  'Packages',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              gapH(26),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: customText("Packages", blue, 20.0, FontWeight.bold)
               ),
-              PackageListView(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: PackageListView(),
+              ),
             ],
           ),
         ),

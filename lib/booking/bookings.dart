@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nanny_vanny/booking/boooking_controller.dart';
+import 'package:nanny_vanny/components/images.dart';
+import 'package:nanny_vanny/components/utils.dart';
 
 class CurrentBookingCard extends StatelessWidget {
   final BookingController bookingController = Get.put(BookingController());
@@ -15,7 +18,9 @@ class CurrentBookingCard extends StatelessWidget {
       }
 
       if (bookingController.bookingData.isEmpty) {
-        return const Center(child: Text("No bookings available"));
+        return Center(
+            child: customText(
+                "No bookings available", lightBlack, 16.0, FontWeight.w600));
       }
 
       var booking = bookingController.bookingData;
@@ -27,72 +32,139 @@ class CurrentBookingCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 0,
               blurRadius: 7,
-              offset: const Offset(0, 3),
+              offset: const Offset(0, 0),
             ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              booking['title'] ?? 'Package',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                customText(booking['title'] ?? 'Package', pinkText, 17.0,
+                    FontWeight.w500),
+                Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: pinkText),
+                  child: Center(
+                    child: customText("Start", white, 16.0, FontWeight.w500),
+                  ),
+                )
+              ],
             ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'From\n${booking['from_date']}\n${booking['from_time']}',
-                  style: const TextStyle(fontSize: 14),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    customText("From", lightBlack, 14.0, FontWeight.w500),
+                    Row(
+                      children: [
+                        SvgPicture.asset(ImagePath.cal1),
+                        gapW(5),
+                        customText(booking['from_date'], lightBlack, 16.0,
+                            FontWeight.w600),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        SvgPicture.asset(ImagePath.clock),
+                        gapW(5),
+                        customText(booking['from_time'], lightBlack, 16.0,
+                            FontWeight.w600),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'To\n${booking['to_date']}\n${booking['to_time']}',
-                  style: const TextStyle(fontSize: 14),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    customText("To", lightBlack, 16.0, FontWeight.w500),
+                    Row(
+                      children: [
+                        SvgPicture.asset(ImagePath.cal1),
+                        gapW(5),
+                        customText(booking['to_date'], lightBlack, 16.0,
+                            FontWeight.w600),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        SvgPicture.asset(ImagePath.clock),
+                        gapW(5),
+                        customText(booking['to_time'], lightBlack, 14.0,
+                            FontWeight.w600),
+                      ],
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Start'),
-                ),
+                gapW(5)
               ],
             ),
-            const SizedBox(height: 10),
+            gapH(10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Rate Us',
-                    style: TextStyle(
-                      fontSize: 12,
+                Container(
+                  height: 25,
+                  width: 90,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0), color: blue),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(ImagePath.star),
+                        gapW(4),
+                        customText("Rate Us", white, 15.0, FontWeight.w500),
+                      ],
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Geolocation',
-                    style: TextStyle(
-                      fontSize: 12,
+                
+                Container(
+                  height: 25,
+                  width: 110,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0), color: blue),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(ImagePath.pin),
+                        gapW(4),
+                        customText("Geolocation", white, 15.0, FontWeight.w500),
+                      ],
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Surveillance',
-                    style: TextStyle(
-                      fontSize: 12,
+                
+                Container(
+                  height: 25,
+                  width: 110,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0), color: blue),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(ImagePath.radio),
+                        gapW(4),
+                        customText("Surveillance", white, 15.0, FontWeight.w500),
+                      ],
                     ),
                   ),
                 ),
+                
               ],
             ),
           ],
