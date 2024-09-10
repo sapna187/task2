@@ -18,7 +18,8 @@ class PackageListView extends StatelessWidget {
       }
 
       if (packageController.packages.isEmpty) {
-        return Center(child: customText(
+        return Center(
+            child: customText(
                 "No Packages available", lightBlack, 16.0, FontWeight.w600));
       }
 
@@ -66,47 +67,40 @@ class PackageCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SvgPicture.asset(ImagePath.cal2),
+                SvgPicture.asset(title == 'Three Day Package'
+                    ? ImagePath.threeDays
+                    : title == 'Five Day Package'
+                        ? ImagePath.fiveDays
+                        : title == 'Weekend Day Package'
+                            ? ImagePath.weekend
+                            : ImagePath.cal2),
                 Container(
                   height: 30,
                   width: 100,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0), color: price == '₹ 7497' ? dirtyBlue : pinkText),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: price == '₹ 7497' ? dirtyBlue : pinkText),
                   child: Center(
                     child: customText("Book Now", white, 16.0, FontWeight.w500),
                   ),
                 )
               ],
             ),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              description,
-              style: const TextStyle(fontSize: 14),
-            ),
-            const SizedBox(height: 8),
+            gapH(15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Book Now'),
-                ),
+                customText(title, blue, 18.0, FontWeight.bold),
+                customText(price, blue, 18.0, FontWeight.bold),
               ],
             ),
+            const SizedBox(height: 8),
+            customText(
+                description,
+                title == 'Weekend Day Package' ? white : lightBlack,
+                14.0,
+                FontWeight.w500),
+            const SizedBox(height: 8),
           ],
         ),
       ),
