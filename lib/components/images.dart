@@ -3,7 +3,7 @@ class ImagePath {
   static String base = "assets/images/";
 
   // all image paths
-  static String menu = "${base}menu.svg";
+  static String menu = "${base}Menu.svg";
   static String dp = "${base}dp_image.png";
   static String nanny = "${base}nanny.png";
   static String cal1 = "${base}calendar.svg";
@@ -14,7 +14,6 @@ class ImagePath {
   static String cal2 = "${base}calendar_big.svg";
   static String home = "${base}home.svg";
   static String package = "${base}sale.svg";
-  static String booking = "${base}clock.svg";
+  static String booking = "${base}Clock.svg";
   static String profile = "${base}user.svg";
-  
 }
