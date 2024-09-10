@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nanny_vanny/booking/bookings.dart';
+import 'package:nanny_vanny/components/drawer.dart';
 import 'package:nanny_vanny/components/images.dart';
 import 'package:nanny_vanny/home/home_controller.dart';
 import 'package:nanny_vanny/packages/packages.dart';
@@ -20,18 +21,63 @@ class HomeView extends StatelessWidget {
       backgroundColor: white,
       key: scaffoldKey,
       appBar: AppBar(
+        toolbarHeight: 120,
+        backgroundColor: white,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.all(18.0), // Add 20 pixel top padding
+          child: Column(
+            children: [
+              gapH(20),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage(ImagePath.dp),
+                  ),
+                  SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      customText('Welcome', lightBlack, 20.0, FontWeight.bold),
+                      customText(
+                        'Emily Cyrus',
+                        const Color.fromARGB(255, 234, 111, 164),
+                        20.0,
+                        FontWeight.bold,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
         actions: [
-          SvgPicture.asset(ImagePath.menu)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 2, 18, 0),
+            child: Column(
+              children: [
+                IconButton(
+                  icon: SvgPicture.asset(ImagePath.menu),
+                  onPressed: () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+                gapH(10),
+              ],
+            ),
+          ),
         ],
       ),
-      endDrawer: const Drawer(),
+      drawer: CustomDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(18.0),
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
@@ -66,7 +112,7 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(18.0),
                 child: Text(
                   'Your Current Booking',
                   style: TextStyle(
@@ -76,11 +122,11 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: CurrentBookingCard(),
               ),
               const Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(18.0),
                 child: Text(
                   'Packages',
                   style: TextStyle(
@@ -99,61 +145,77 @@ class HomeView extends StatelessWidget {
   }
 
   Widget bottomNavigationBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: white,
-      items: [
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/images/home.svg',
-            height: 24,
-            width: 24,
-            color:
-                controller.selectedCategory.value == 0 ? pink : lightBlack,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Blue line at the top
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Container(
+            height: 2, // Adjust the height as needed
+            color: Colors.blue, // Blue color for the line
           ),
-          label: '',
         ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImagePath.home,
-            height: 24,
-            width: 24,
-            color:
-                controller.selectedCategory.value == 1 ? pink : lightBlack,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImagePath.package,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImagePath.booking,
-            height: 24,
-            width: 24,
-            color:
-                controller.selectedCategory.value == 2 ? pink : lightBlack,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            ImagePath.profile,
-            height: 24,
-            width: 24,
-            color:
-                controller.selectedCategory.value == 3 ? pink : lightBlack,
-          ),
-          label: '',
+        BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          currentIndex: controller.selectedCategory.value,
+          onTap: (index) {
+            controller.selectedCategory.value = index;
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/images/home.svg',
+                height: 24,
+                width: 24,
+                color: controller.selectedCategory.value == 0
+                    ? Color.fromARGB(255, 237, 76, 145) // pink for selected
+                    : Colors.black54, // grey for unselected
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                ImagePath.package,
+                height: 24,
+                width: 24,
+                color: controller.selectedCategory.value == 1
+                    ? Color.fromARGB(255, 237, 76, 145)
+                    : Colors.black54,
+              ),
+              label: 'Packages',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                ImagePath.booking,
+                height: 24,
+                width: 24,
+                color: controller.selectedCategory.value == 2
+                    ? Color.fromARGB(255, 237, 76, 145)
+                    : Colors.black54,
+              ),
+              label: 'Bookings',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                ImagePath.profile,
+                height: 24,
+                width: 24,
+                color: controller.selectedCategory.value == 3
+                    ? Color.fromARGB(255, 237, 76, 145)
+                    : Colors.black54,
+              ),
+              label: 'Profile',
+            ),
+          ],
+          selectedItemColor:
+              Color.fromARGB(255, 237, 76, 145), // pink for selected
+          unselectedItemColor: Colors.black54, // grey for unselected
+          showSelectedLabels: true, // Show selected labels
+          showUnselectedLabels: true, // Show unselected labels
         ),
       ],
-      selectedItemColor: pink,
-      unselectedItemColor: Colors.grey,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
     );
   }
 }
